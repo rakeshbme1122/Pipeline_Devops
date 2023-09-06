@@ -7,18 +7,28 @@ name: cicd_test
 trigger:
   branches:
     include:
-      - master
+      - main
 
 stages:
 - stage: CI_Checks
   jobs:
   - job:
-    displayName: yamllint_checks
+    displayName: Run the ARM script below
     pool:
       vmImage: 'ubuntu-latest'
     steps:
     - script: |
-        python -m pip install --upgrade pip
-        pip install yamllint
-        yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}, new-line-at-end-of-file: disable, new-lines: disable}}" .
-      displayName: 'YAML Lint Checks'
+        echo Hello World below script is to create storage account
+      displayName: 'Creating Storage Account'
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Azure subscription 1(d335a5bd-1676-4e8e-ba9b-8565858d44ec)'
+        subscriptionId: 'd335a5bd-1676-4e8e-ba9b-8565858d44ec'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'Resourcegroup'
+        location: 'East US 2'
+        templateLocation: 'Linked artifact'
+        csmFile: 'mystorage.json'
+        deploymentMode: 'Incremental'
+        overrideParameters: --storageAccountName sg09062023

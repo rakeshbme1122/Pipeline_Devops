@@ -31,4 +31,4 @@ stages:
         templateLocation: 'Linked artifact'
         csmFile: 'mystorage.json'
         deploymentMode: 'Incremental'
-        overrideParameters: --storageAccountName sg09062023
+        overrideParameters: -storageAccountName sg09062023

@@ -32,3 +32,15 @@ stages:
         csmFile: 'mystorage.json'
         deploymentMode: 'Incremental'
         overrideParameters: -storageAccountName sg09062023
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Azure subscription 1(d335a5bd-1676-4e8e-ba9b-8565858d44ec)'
+        subscriptionId: 'd335a5bd-1676-4e8e-ba9b-8565858d44ec'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'Resourcegroup'
+        location: 'East US 2'
+        templateLocation: 'Linked artifact'
+        csmFile: 'mystorage.json'
+        deploymentMode: 'Incremental'
+        overrideParameters: -storageAccountName sg0906202302
